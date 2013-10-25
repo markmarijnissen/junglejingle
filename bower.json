@@ -1,0 +1,32 @@
+{
+  "name": "junglejingle",
+  "version": "0.1.0",
+  "main": "public/js/app.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "console-polyfill": "~0.1.0",
+    "jquery": "~2.0.3",
+    "angular": "~1.2.0-rc.3",
+    "angular-sanitize": "~1.2.0-rc.3",
+    "angular-mocks": "~1.2.0-rc.3",
+    "angular-hammer": "~1.0.3",
+    "angular-localstorage": "*",
+    "angular-fire": "~0.3.1",
+    "howler": "~1.1.14"
+  },
+  "overrides": {
+    "angular-mocks": {
+      "main": "README.md"
+    },
+    "howler": {
+      "main":"howler.js"
+    },
+    "angular-fire":{
+      "main": "angularFire.js"
+    }
+  }
+}
