@@ -18,36 +18,41 @@ html(lang='en', ng-app='JungleJingleApp')
         enabled: true
       };
     script(src='https://cdn.firebase.com/v0/firebase.js')
+    script.
+      if(!window.Firebase) window.Firebase = function(){return{on:function(){},set:function(){}}};
     script(src='/js/vendor.js')
     script(src='/js/app.js')
   body(ng-controller='AppCtrl')
 
   div(ng-switch on="connection()")
     mixin header
-      h1 Jungle Jingle
+      div.header
+        img(src="junglejingle.png")
 
-    div(ng-switch-when="loading")
+    div.message(ng-switch-when="loading")
       mixin header()
       p loading
-    div(ng-switch-when="waiting")
+    div.message(ng-switch-when="waiting")
       mixin header()
       p ask your friend to go to 
-        a(href="{{url}}",target="_blank") {{url}}
-    div(ng-switch-when="watching")
+        br
+        a(href="{{url}}",target="_blank") {{url.substr(7)}}
+    div.message(ng-switch-when="watching")
       mixin header()
       p you can't join this game, there are already two players
       p start a 
         a(href="/{{newCode}}") new game
     
     div(ng-switch-when="playing",ng-controller="GameCtrl")
-      div
-        p.move a wild {{getOpponentMove()}} appears...
-        p.countermove and you select a {{getMyMove()}}
-        hr
-        p image of the wild {{getOpponentMove()}}
-        p Opponent Score: {{opponentScore}}
-        hr
-      div
-        p select your move (you are {{me}}, it is <strong ng-show="!isMyTurn()">not</strong> your turn!)
-        p My Score: {{myScore}}
-        button(ng-repeat="move in animals",hm-tap="selectMove(move)",ng-disabled="!isMyTurn()") {{move}}
+      div.top
+        div.opponentmove a wild {{getOpponentMove()}} appears...
+        div.mymove and you select a {{getMyMove()}}
+        img.opponent(ng-src="images/{{getOpponentMove()}}.png")
+        div.otherscore Opponent Score: {{opponentScore}}
+      div.bottom.moves
+        div.myturn(ng-show="isMyTurn()") select your move
+        div.myscore {{myScore}}
+        br.clear
+        div.move(ng-repeat="move in animals",hm-tap="selectMove(move)")
+          img(ng-src="images/{{move}}.png")
+      div.bottom.notmyturn(ng-show="!isMyTurn()")
